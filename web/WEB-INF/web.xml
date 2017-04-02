@@ -20,6 +20,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.isim.servlets.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CommanderServlet</servlet-name>
+        <servlet-class>com.isim.servlets.CommanderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommanderServlet</servlet-name>
+        <url-pattern>/commander</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

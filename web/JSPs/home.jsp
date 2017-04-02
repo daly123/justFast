@@ -24,7 +24,7 @@ Just Fast Delivery service
     </jsp:include>
   <!-- WRAPPER STARTS HERE-->
 <div class='wrapper'>
-<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<!--<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>-->
 <header><!-- HEADER STARTS HERE-->
 
 <div class='container titles yomer-text-center'>
@@ -350,7 +350,7 @@ Just Fast Delivery service
 		
 
 </script>
-<script type="text/javascript">
+<!--<script type="text/javascript">
 
         window.onscroll = function() {scrollFunction()};
 
@@ -367,6 +367,6 @@ function topFunction() {
     document.body.scrollTop = 0; // For Chrome, Safari and Opera 
     document.documentElement.scrollTop = 0; // For IE and Firefox
 }
-</script>
+</script>-->
 </body>
 </html>

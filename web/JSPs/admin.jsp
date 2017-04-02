@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>rak admin nayk!</h1>
+        <h1>admin!!!</h1>
     </body>
 </html>

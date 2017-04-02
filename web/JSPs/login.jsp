@@ -26,8 +26,8 @@
 
 
         <jsp:include page="common/nav.jsp">
-            <jsp:param name="active" value="login"></jsp:param>
-        </jsp:include>
+        <jsp:param name="active" value="login"></jsp:param>
+    </jsp:include>
 
         <div class="login" bgcolor="FAFAFA">
             <h1><font color="black">Authentification</font></h1>

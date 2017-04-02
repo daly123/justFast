@@ -1,10 +1,11 @@
 <%-- 
-    Document   : Registr
-    Created on : 1 avr. 2017, 15:25:18
+    Document   : commander
+    Created on : 2 avr. 2017, 17:45:31
     Author     : dalym
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,108 +18,113 @@ Just Fast Delivery service
 <link href="/JustFast/assets/css/style.css" rel="stylesheet">
 <link href="/JustFast/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
- <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
- <![endif]-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </head>
 
 <body class="connecter">
  
 
-
 <jsp:include page="common/nav.jsp">
-        <jsp:param name="active" value="register"></jsp:param>
+        <jsp:param name="active" value="commander"></jsp:param>
     </jsp:include>
 
 <br><br><br><br><br>
+
+
+
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12 col-md-6 col-md-offset-3">
-                    <form action="/JustFast/register" method="POST">
-			<h2>Inscrivez-vous sur Just Fast</h2>
-			
-				<div class="form-group select required user_user_preference_civility">
-					<label class="select required control-label" for="user_user_preference_attributes_civility">* Civilité</label>
-					<select class="select required input-lg form-control" name="civilite" >
-						<option value="">--</option>
-						<option value="0">Monsieur</option>
-						<option value="1">Madame</option>
-						<option value="2">Mademoiselle</option>
-					</select>
-				</div>
-				<div class="form-group string required user_user_preference_first_name">
-					<label class="string required control-label" for="user_user_preference_attributes_first_name">* Prénom</label>
-					<input class="string required input-lg form-control" type="text" name="prenom" >
-				</div>
-				<div class="form-group string required user_user_preference_last_name">
-					<label class="string required control-label" for="user_user_preference_attributes_last_name">* Nom</label>
-					<input class="string required input-lg form-control" type="text"  name="nom" >
-				</div>
-				<div class="form-group string required user_user_preference_birth_date">
-					<label class="string required control-label" for="user_user_preference_attributes_birth_date">* Date de naissance</label>
-					<input class="string required input-lg form-control" placeholder="jj/mm/aaaa" value="" type="date" name="date_naissance" >
-				</div>
-				<div class="form-group email required user_email">
-					<label class="email required control-label" for="user_email">* Adresse email</label>
-					<input class="string email required input-lg form-control" type="email" value="" name="email" >
-				</div>
-				<div class="form-group tel required user_phone">
-					<label class="tel required control-label" for="user_phone">* Numéro de téléphone portable</label>
-					<input class="string tel required input-lg form-control" type="tel" name="phone" >
-				</div>
-				<div id="user_city_form" class="form-group string required user_city">
-					<label class="string required control-label" for="user_city">* Ville de résidence</label>
-					<input class="string required input-lg form-control" type="text" value="" name="ville"  placeholder="Indiquez un lieu" autocomplete="off">
-				</div>
-				<div class="form-group hidden user_department">
-					<input class="hidden form-control" type="hidden" value="non renseigné" name="user[department]" >
-				</div>
-				<div class="form-group hidden user_region">
-					<input class="hidden form-control" type="hidden" value="non renseigné" name="user[region]" id="user_region">
-				</div>
-				<div class="form-group hidden user_country">
-					<input class="hidden form-control" type="hidden" value="non renseigné" name="user[country]" id="user_country">
-				</div>
-                            <div class="form-group email required user_email">
-					<label class="email required control-label" for="user_email">* Login</label>
-					<input class="string email required input-lg form-control" type="text" placeholder="Inserer votre Login" name="login_u" >
-				</div>
-				<div class="form-group password required user_password">
-					<label class="password required control-label" for="user_password">* Mot de passe</label>
-					<div class="password">
-                        <input class="string required input-lg form-control" type="password" value="" name="mdp"  placeholder="votre mot de passe">
-                        <span class="glyphicon glyphicon-eye-open"></span><br>
-                        <div class="form-group password required user_password">
-					<label class="password required control-label" for="user_password">* Confirmer mot de passe</label>
-					<div class="password">
-                        <input class="string required input-lg form-control" type="password" value="" name="mdpc"  placeholder="votre mot de passe">
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                    </div>
-				</div>
-				<div class="clearfix">
-				</div>
-				
-				<div class="pull-left"><small>* Indispensable</small>
-				</div>
-				<br>
-				<div class="form-group pull-right">
-					<input type="submit" value="S'inscrire" class="btn btn-success btn-lg">
-				</div>
-				<br><br><br>
-			</form>
+			<h2>Specifiez votre commande</h2>
+
+<form class="simple_form form-horizontal" onsubmit="loader.show();" novalidate="novalidate" id="edit_ride_12299084-7c08-4f0b-b288-a079c6e692f9" enctype="multipart/form-data" action="confirmer.html" accept-charset="UTF-8" method="post"> <!-- servlet confirmation -->
+	<input name="utf8" type="hidden" value="✓">
+	<input type="hidden" name="_method" value="patch">
+	<input type="hidden" name="authenticity_token" value="SmHVEouQdmYPKqwtrtlwEu8Tz0QTbpvgBEekrIMnbD0tEryTNkD6Nq0yiaJU6j2C3g7GgJWLws58wL8tCDYgJw==">
+	<div class="form-group string optional ride_content">
+		<label class="string optional col-sm-3 control-label" for="ride_content">Je veux envoyer un(e)</label>
+		<div class="col-sm-9">
+			<input class="string optional input-lg form-control" placeholder="" type="text" name="ride[content]" id="ride_content">
 		</div>
 	</div>
-</div>
+	<div class="form-group text optional ride_description">
+		<label class="text optional col-sm-3 control-label" for="ride_description">Description</label>
+		<div class="col-sm-9">
+			<textarea rows="6" class="text optional form-control" placeholder="Précisez ici les caractéristiques du ou des biens à envoyer (dimensions, poids, fragilité...)" name="ride[description]" id="ride_description"></textarea>
+		</div>
+	</div>
+	<div class="form-group string optional ride_address_from">
+		<label class="string optional col-sm-3 control-label" for="ride_address_from">De</label>
+		<div class="col-sm-9">
+			<input class="string optional address-autocomplete input-lg form-control" autocomplete="off" onkeypress="return event.keyCode !== 13;" placeholder="Lieu de départ" type="text" name="ride[address_from]" id="ride_address_from">
+			<p class="help-block">Tapez l'adresse puis cliquez sur la bonne proposition</p>
+		</div>
+	</div>
+	<div class="form-group string optional ride_address_to">
+		<label class="string optional col-sm-3 control-label" for="ride_address_to">A</label>
+		<div class="col-sm-9">
+			<input class="string optional address-autocomplete input-lg form-control" autocomplete="off" onkeypress="return event.keyCode !== 13;" placeholder="Lieu d'arrivée" type="text" name="ride[address_to]" id="ride_address_to">
+			<p class="help-block">Tapez l'adresse puis cliquez sur la bonne proposition</p>
+		</div>
+	</div>
+	<div class="form-group hidden ride_distance">
+		<div class="col-sm-9">
+			<input class="hidden form-control" type="hidden" name="ride[distance]" id="ride_distance">
+		</div>
+	</div>
+	<div class="form-group hidden ride_duration">
+		<div class="col-sm-9">
+			<input class="hidden form-control" type="hidden" name="ride[duration]" id="ride_duration">
+		</div>
+	</div>
+	<div class="form-group hidden ride_overview_polyline">
+		<div class="col-sm-9">
+			<input class="hidden form-control" type="hidden" name="ride[overview_polyline]" id="ride_overview_polyline">
+		</div>
+	</div>
+	<div class="form-group hidden ride_placeid_from">
+		<div class="col-sm-9">
+			<input value="" class="hidden form-control" type="hidden" name="ride[placeid_from]" id="ride_placeid_from">
+		</div>
+	</div>
+	<div class="form-group hidden ride_placeid_to">
+		<div class="col-sm-9">
+			<input value="" class="hidden form-control" type="hidden" name="ride[placeid_to]" id="ride_placeid_to">
+		</div>
+	</div>
+	<div class="form-group string optional ride_deadline">
+		<label class="string optional col-sm-3 control-label" for="ride_deadline">A livrer de préférence avant le</label>
+		<div class="col-sm-9">
+			<input class="string optional input-lg form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-orientation="top left" data-date-language="fr" data-date-autoclose="true" data-date-start-date="24/03/2017" value="" placeholder="24/03/2017" type="text" name="ride[deadline]" id="ride_deadline">
+		</div>
+	</div>
+	<div class="form-group select optional ride_package">
+		<label class="select optional col-sm-3 control-label" for="ride_package" required="true">*Poids</label>
+		<div class="col-sm-9">
+			<input class="string required input-lg form-control" type="text" name="user[user_preference_attributes][last_name]" id="user_user_preference_attributes_last_name">
+		</div>
+	</div>
+	<div class="form-group select optional ride_package">
+		<label class="select optional col-sm-3 control-label" for="ride_package" required="true">*Distance approaximative</label>
+		<div class="col-sm-9">
+			<input class="string required input-lg form-control" type="text" name="user[user_preference_attributes][last_name]" id="user_user_preference_attributes_last_name">
+		</div>
+	</div>
+	<div class="form-group email optional ride_email">
+		<label class="email optional col-sm-3 control-label" for="ride_email">Votre adresse email</label>
+		<div class="col-sm-9">
+			<input class="string email optional input-lg form-control" placeholder="email@fai.com" type="email" name="ride[email]" id="ride_email">
+		</div>
+	</div>
+	
+		<div class="form-group"><input type="submit" name="commit" value="Passer à l'étape suivante" class="btn btn-success btn-lg pull-right">
+		</div>
+	</form>
 
 
-<script type='text/javascript' src='/JustFast/assets/js/jquery.js'></script>
+	<script type='text/javascript' src='/JustFast/assets/js/jquery.js'></script>
 <script type='text/javascript' src='/JustFast/assets/js/bootstrap.min.js'></script>
 <script type='text/javascript' src='/JustFast/assets/js/scrollReveal.js'></script>
-<script type="text/javascript">
-    
-</script>
 <script type='text/javascript'>
 jQuery(document).ready(function(){  
 		
@@ -202,6 +208,5 @@ $(".glyphicon-eye-open").mousedown(function(){
             	$("#passwordfield").attr('type','password');
             });
 </script>
-
 </body>
 </html>
