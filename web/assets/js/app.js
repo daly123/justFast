@@ -49,3 +49,73 @@ jQuery(document).ready(function(){
       window.scrollReveal = new scrollReveal();
     })();
 		
+
+
+function CalculDistance()
+{
+	//récupération des champs du formulaire
+	var adr_dep=document.forms[0].depart.value;
+	
+	var adr_arr=document.forms[0].arrive.value;
+	
+	
+	var origine=adr_dep;
+	var destination=adr_arr;
+	
+	//requête de distance auprès du service DistanceMatrix, avec ici une seule adresse de départ et une seule d'arrivée
+	var service = new google.maps.DistanceMatrixService();
+	service.getDistanceMatrix(
+	  {
+		origins: [origine],
+		destinations: [destination],
+		travelMode: google.maps.TravelMode.DRIVING,
+		unitSystem: google.maps.UnitSystem.METRIC,
+		avoidHighways: false,
+		avoidTolls: false
+	  }, callback);
+}
+	
+function callback(response, status)
+{
+	if (status != google.maps.DistanceMatrixStatus.OK)
+	{
+		alert('Erreur : ' + status); //message d'erreur du serveur distant GG Maps
+	}
+	else
+	{
+		//réponses du serveur (
+		var origins = response.originAddresses;
+		var destinations = response.destinationAddresses;
+		for (var i = 0; i < origins.length; i++)
+		{
+			var results = response.rows[i].elements;
+			var dep = origins[i];
+			if(dep!='')
+			{
+				for (var j = 0; j < results.length; j++)
+				{
+					var element = results[j];
+					var statut = element.status;
+					var arr = destinations[j];
+					if(statut=='OK')
+					{
+						var dist = element.distance.value;
+						document.forms[0].distance.value=parseInt(dist/1000);//distance en km
+					}
+					else if(statut=='NOT_FOUND')
+					{
+						alert("impossible de localiser l'adresse d'arrivée");
+					}
+					else if(statut=='ZERO_RESULTS')
+					{
+						alert("impossible de calculer cette distance");
+					}
+				}
+			}
+			else
+			{
+				alert("impossible de localiser l'adresse de départ");
+			}
+		}
+	}
+}
