@@ -39,7 +39,7 @@
             <p>${error}</p>
             <br>
             <center>
-                <a href="/ProjetJ2EE/ServletOubli" style="color:white;text-decoration:none;"><font color="black">Nouveau utilisateur? <font></a>
+                <a href="/JustFast/register" style="color:white;text-decoration:none;"><font color="black">Nouveau utilisateur? <font></a>
             </center>
         </div>
 

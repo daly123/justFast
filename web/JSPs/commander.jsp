@@ -19,6 +19,80 @@ Just Fast Delivery service
 <link href="/JustFast/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=fr"></script>
+<script src="../assets/js/app.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyA6Or_1q5CIJ_nrbMOEE50Jjv3BVLnNyb8
+"></script>
+<script type="text/javascript">
+function CalculDistance()
+{
+	//récupération des champs du formulaire
+	var adr_dep=document.forms[0].depart.value;
+	
+	var adr_arr=document.forms[0].arrive.value;
+	
+	
+	var origine=adr_dep;
+	var destination=adr_arr;
+	
+	//requête de distance auprès du service DistanceMatrix, avec ici une seule adresse de départ et une seule d'arrivée
+	var service = new google.maps.DistanceMatrixService();
+	service.getDistanceMatrix(
+	  {
+		origins: [origine],
+		destinations: [destination],
+		travelMode: google.maps.TravelMode.DRIVING,
+		unitSystem: google.maps.UnitSystem.METRIC,
+		avoidHighways: false,
+		avoidTolls: false
+	  }, callback);
+}
+	
+function callback(response, status)
+{
+	if (status != google.maps.DistanceMatrixStatus.OK)
+	{
+		alert('Erreur : ' + status); //message d'erreur du serveur distant GG Maps
+	}
+	else
+	{
+		//réponses du serveur (
+		var origins = response.originAddresses;
+		var destinations = response.destinationAddresses;
+		for (var i = 0; i < origins.length; i++)
+		{
+			var results = response.rows[i].elements;
+			var dep = origins[i];
+			if(dep!='')
+			{
+				for (var j = 0; j < results.length; j++)
+				{
+					var element = results[j];
+					var statut = element.status;
+					var arr = destinations[j];
+					if(statut=='OK')
+					{
+						var dist = element.distance.value;
+						document.forms[0].distance.value=parseInt(dist/1000);//distance en km
+					}
+					else if(statut=='NOT_FOUND')
+					{
+						alert("impossible de localiser l'adresse d'arrivée");
+					}
+					else if(statut=='ZERO_RESULTS')
+					{
+						alert("impossible de calculer cette distance");
+					}
+				}
+			}
+			else
+			{
+				alert("impossible de localiser l'adresse de départ");
+			}
+		}
+	}
+}
+</script>
 </head>
 
 <body class="connecter">
@@ -37,33 +111,33 @@ Just Fast Delivery service
 		<div class="col-xs-12 col-md-6 col-md-offset-3">
 			<h2>Specifiez votre commande</h2>
 
-<form class="simple_form form-horizontal" onsubmit="loader.show();" novalidate="novalidate" id="edit_ride_12299084-7c08-4f0b-b288-a079c6e692f9" enctype="multipart/form-data" action="confirmer.html" accept-charset="UTF-8" method="post"> <!-- servlet confirmation -->
+<form class="simple_form form-horizontal"  action="/JustFast/commander" accept-charset="UTF-8" method="post"> <!-- servlet confirmation -->
 	<input name="utf8" type="hidden" value="✓">
 	<input type="hidden" name="_method" value="patch">
 	<input type="hidden" name="authenticity_token" value="SmHVEouQdmYPKqwtrtlwEu8Tz0QTbpvgBEekrIMnbD0tEryTNkD6Nq0yiaJU6j2C3g7GgJWLws58wL8tCDYgJw==">
 	<div class="form-group string optional ride_content">
 		<label class="string optional col-sm-3 control-label" for="ride_content">Je veux envoyer un(e)</label>
 		<div class="col-sm-9">
-			<input class="string optional input-lg form-control" placeholder="" type="text" name="ride[content]" id="ride_content">
+                    <input class="string optional input-lg form-control" placeholder="" type="text" name="objet" id="ride_content" required="required">
 		</div>
 	</div>
 	<div class="form-group text optional ride_description">
 		<label class="text optional col-sm-3 control-label" for="ride_description">Description</label>
 		<div class="col-sm-9">
-			<textarea rows="6" class="text optional form-control" placeholder="Précisez ici les caractéristiques du ou des biens à envoyer (dimensions, poids, fragilité...)" name="ride[description]" id="ride_description"></textarea>
+			<textarea rows="6" class="text optional form-control" placeholder="Précisez ici les caractéristiques du ou des biens à envoyer (dimensions, poids, fragilité...)" name="description"  required="required"></textarea>
 		</div>
 	</div>
 	<div class="form-group string optional ride_address_from">
 		<label class="string optional col-sm-3 control-label" for="ride_address_from">De</label>
 		<div class="col-sm-9">
-			<input class="string optional address-autocomplete input-lg form-control" autocomplete="off" onkeypress="return event.keyCode !== 13;" placeholder="Lieu de départ" type="text" name="ride[address_from]" id="ride_address_from">
+                    <input class="string optional address-autocomplete input-lg form-control" autocomplete="off" onkeypress="return event.keyCode !== 13;" placeholder="Lieu de départ" type="text" name="depart" required="required">
 			<p class="help-block">Tapez l'adresse puis cliquez sur la bonne proposition</p>
 		</div>
 	</div>
 	<div class="form-group string optional ride_address_to">
 		<label class="string optional col-sm-3 control-label" for="ride_address_to">A</label>
 		<div class="col-sm-9">
-			<input class="string optional address-autocomplete input-lg form-control" autocomplete="off" onkeypress="return event.keyCode !== 13;" placeholder="Lieu d'arrivée" type="text" name="ride[address_to]" id="ride_address_to">
+			<input class="string optional address-autocomplete input-lg form-control" autocomplete="off" onkeypress="return event.keyCode !== 13;" placeholder="Lieu d'arrivée" type="text" name="arrive"  required="required">
 			<p class="help-block">Tapez l'adresse puis cliquez sur la bonne proposition</p>
 		</div>
 	</div>
@@ -95,29 +169,24 @@ Just Fast Delivery service
 	<div class="form-group string optional ride_deadline">
 		<label class="string optional col-sm-3 control-label" for="ride_deadline">A livrer de préférence avant le</label>
 		<div class="col-sm-9">
-			<input class="string optional input-lg form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-orientation="top left" data-date-language="fr" data-date-autoclose="true" data-date-start-date="24/03/2017" value="" placeholder="24/03/2017" type="text" name="ride[deadline]" id="ride_deadline">
+			<input class="string optional input-lg form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-orientation="top left" data-date-language="fr" data-date-autoclose="true" data-date-start-date="24/03/2017" value="" placeholder="24/03/2017" type="date" name="avant"  required="required">
 		</div>
 	</div>
 	<div class="form-group select optional ride_package">
 		<label class="select optional col-sm-3 control-label" for="ride_package" required="true">*Poids</label>
 		<div class="col-sm-9">
-			<input class="string required input-lg form-control" type="text" name="user[user_preference_attributes][last_name]" id="user_user_preference_attributes_last_name">
+                    <input class="string required input-lg form-control" type="number" min="1" name="poids"  required="required">
 		</div>
 	</div>
 	<div class="form-group select optional ride_package">
-		<label class="select optional col-sm-3 control-label" for="ride_package" required="true">*Distance approaximative</label>
+		<label class="select optional col-sm-3 control-label" for="ride_package" required="true">*Distance(Km)</label>
 		<div class="col-sm-9">
-			<input class="string required input-lg form-control" type="text" name="user[user_preference_attributes][last_name]" id="user_user_preference_attributes_last_name">
-		</div>
-	</div>
-	<div class="form-group email optional ride_email">
-		<label class="email optional col-sm-3 control-label" for="ride_email">Votre adresse email</label>
-		<div class="col-sm-9">
-			<input class="string email optional input-lg form-control" placeholder="email@fai.com" type="email" name="ride[email]" id="ride_email">
+                    <input class="string required input-lg form-control" type="text"  name="distance" readonly="true"   required="required">
 		</div>
 	</div>
 	
-		<div class="form-group"><input type="submit" name="commit" value="Passer à l'étape suivante" class="btn btn-success btn-lg pull-right">
+	
+		<div class="form-group"><input type="submit" name="commit" value="Passer à l'étape suivante" class="btn btn-success btn-lg pull-right" onclick="CalculDistance();">
 		</div>
 	</form>
 
@@ -208,5 +277,8 @@ $(".glyphicon-eye-open").mousedown(function(){
             	$("#passwordfield").attr('type','password');
             });
 </script>
+
+
+
 </body>
 </html>

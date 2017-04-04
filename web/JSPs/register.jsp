@@ -83,12 +83,12 @@ Just Fast Delivery service
 				</div>
                             <div class="form-group email required user_email">
 					<label class="email required control-label" for="user_email">* Login</label>
-					<input class="string email required input-lg form-control" type="text" placeholder="Inserer votre Login" name="login_u" >
+					<input class="string email required input-lg form-control" type="text" placeholder="Inserer votre Login" name="username" >
 				</div>
 				<div class="form-group password required user_password">
 					<label class="password required control-label" for="user_password">* Mot de passe</label>
 					<div class="password">
-                        <input class="string required input-lg form-control" type="password" value="" name="mdp"  placeholder="votre mot de passe">
+                        <input class="string required input-lg form-control" type="password" value="" name="password"  placeholder="votre mot de passe">
                         <span class="glyphicon glyphicon-eye-open"></span><br>
                         <div class="form-group password required user_password">
 					<label class="password required control-label" for="user_password">* Confirmer mot de passe</label>
