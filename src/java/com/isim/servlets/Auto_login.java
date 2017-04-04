@@ -5,9 +5,9 @@
  */
 package com.isim.servlets;
 
-import Beans.Compte;
 import com.isim.datasource.ConnexionClass;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,38 +25,25 @@ import javax.servlet.http.HttpSession;
  *
  * @author dalym
  */
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "Auto_login", urlPatterns = {"/Auto_login"})
+public class Auto_login extends HttpServlet {
 
-   
     
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/JSPs/register.jsp").forward(request, response);
-    }
-
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-         Compte c=new Compte(request.getParameter("username"), request.getParameter("email"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("date_naissance"), request.getParameter("ville"), request.getParameter("password"), request.getParameter("phone"), 0,request.getParameter("civilite") );
-        try {
-            Connection cnx=com.isim.datasource.ConnexionClass.Connect();
-            Statement st=cnx.createStatement();
-            System.out.println(c.getLogin_u());
-            String  req="insert into compte(login_u,email,nom,prenom,civilite,date_naissance,adresse,mdp,numtel,isAmin) values('"+c.getLogin_u()+"','"+c.getEmail()+"','"+c.getNom()+"','"+c.getPrenom()+"','"+c.getCivilite()+"','"+c.getDate_naissance()+"','"+c.getAdresse()+"','"+c.getMdp()+"',"+c.getNumtel()+",0)";
-            int nb=st.executeUpdate(req);
-                   
-            
-            
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.print("USERNAME : " + request.getParameter("username"));
-        System.out.print("USERNAME : " + request.getParameter("password"));
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = (String) request.getAttribute("user");
+        String password = (String) request.getAttribute("password");
         try {
             Connection cnx = ConnexionClass.Connect();
             String loginReq = "SELECT * FROM `compte` WHERE `login_u`= '" + username + "' and mdp= '" + password + "'";
@@ -87,10 +75,8 @@ public class RegisterServlet extends HttpServlet {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
-        
-        
-        
-         
     }
-}
+
+    }
+
+
